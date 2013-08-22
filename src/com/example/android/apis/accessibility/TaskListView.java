@@ -17,7 +17,6 @@
 package com.example.android.apis.accessibility;
 
 import com.example.android.apis.R;
-
 import android.content.Context;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;

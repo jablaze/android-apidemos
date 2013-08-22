@@ -16,6 +16,7 @@
 
 package com.example.android.apis.graphics;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.*;
 import android.os.Bundle;
@@ -36,10 +37,6 @@ public class PathEffects extends GraphicsActivity {
         private PathEffect[] mEffects;
         private int[] mColors;
         private float mPhase;
-
-        private static PathEffect makeDash(float phase) {
-            return new DashPathEffect(new float[] { 15, 5, 8, 5 }, phase);
-        }
 
         private static void makeEffects(PathEffect[] e, float phase) {
             e[0] = null;     // no effect
@@ -69,7 +66,8 @@ public class PathEffects extends GraphicsActivity {
                                 };
         }
 
-        @Override protected void onDraw(Canvas canvas) {
+        @SuppressLint("DrawAllocation")
+		@Override protected void onDraw(Canvas canvas) {
             canvas.drawColor(Color.WHITE);
 
             RectF bounds = new RectF();

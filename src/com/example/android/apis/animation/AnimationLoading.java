@@ -46,7 +46,7 @@ import android.widget.LinearLayout;
  */
 public class AnimationLoading extends Activity {
 
-    private static final int DURATION = 1500;
+    //private static final int DURATION = 1500;
 
     /** Called when the activity is first created. */
     @Override
@@ -134,12 +134,12 @@ public class AnimationLoading extends Activity {
 
         private void addBall(float x, float y) {
             ShapeHolder shapeHolder = createBall(x, y);
-            int red = (int)(100 + Math.random() * 155);
-            int green = (int)(100 + Math.random() * 155);
-            int blue = (int)(100 + Math.random() * 155);
-            int color = 0xff000000 | red << 16 | green << 8 | blue;
+            int red = (int)(100 + (Math.random() * 155));
+            int green = (int)(100 + (Math.random() * 155));
+            int blue = (int)(100 + (Math.random() * 155));
+            int color = 0xff000000 | (red << 16) | (green << 8) | blue;
             Paint paint = shapeHolder.getShape().getPaint();
-            int darkColor = 0xff000000 | red/4 << 16 | green/4 << 8 | blue/4;
+            int darkColor = 0xff000000 | ((red/4) << 16) | ((green/4) << 8) | (blue/4);
             RadialGradient gradient = new RadialGradient(37.5f, 12.5f,
                     50f, color, darkColor, Shader.TileMode.CLAMP);
             paint.setShader(gradient);

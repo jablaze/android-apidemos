@@ -16,6 +16,7 @@
 
 package com.example.android.apis.accessibility;
 
+import com.example.android.apis.R;
 import android.app.Activity;
 import android.content.Context;
 import android.graphics.Canvas;
@@ -31,8 +32,6 @@ import android.util.TypedValue;
 import android.view.View;
 import android.view.accessibility.AccessibilityEvent;
 import android.view.accessibility.AccessibilityNodeInfo;
-
-import com.example.android.apis.R;
 
 /**
  * Demonstrates how to implement accessibility support of custom views. Custom view

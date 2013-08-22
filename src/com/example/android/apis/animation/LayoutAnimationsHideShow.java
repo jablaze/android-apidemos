@@ -42,7 +42,7 @@ import android.widget.Button;
  */
 public class LayoutAnimationsHideShow extends Activity {
 
-    private int numButtons = 1;
+    //private int numButtons = 1;
     ViewGroup container = null;
     private LayoutTransition mTransitioner;
 

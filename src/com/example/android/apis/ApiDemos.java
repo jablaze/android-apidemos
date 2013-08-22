@@ -16,17 +16,15 @@
 
 package com.example.android.apis;
 
-import com.example.android.apis.R;
+//import com.example.android.apis.R;
 
 import android.app.ListActivity;
-import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ListView;
-import android.widget.TextView;
 
 import java.text.Collator;
 import java.util.ArrayList;
@@ -64,8 +62,9 @@ public class ApiDemos extends ListActivity {
         PackageManager pm = getPackageManager();
         List<ResolveInfo> list = pm.queryIntentActivities(mainIntent, 0);
 
-        if (null == list)
-            return myData;
+        if (null == list) {
+			return myData;
+		}
 
         String[] prefixPath;
         String prefixWithSlash = prefix;
@@ -88,13 +87,13 @@ public class ApiDemos extends ListActivity {
                     ? labelSeq.toString()
                     : info.activityInfo.name;
 
-            if (prefixWithSlash.length() == 0 || label.startsWith(prefixWithSlash)) {
+            if ((prefixWithSlash.length() == 0) || label.startsWith(prefixWithSlash)) {
 
                 String[] labelPath = label.split("/");
 
                 String nextLabel = prefixPath == null ? labelPath[0] : labelPath[prefixPath.length];
 
-                if ((prefixPath != null ? prefixPath.length : 0) == labelPath.length - 1) {
+                if ((prefixPath != null ? prefixPath.length : 0) == (labelPath.length - 1)) {
                     addItem(myData, nextLabel, activityIntent(
                             info.activityInfo.applicationInfo.packageName,
                             info.activityInfo.name));

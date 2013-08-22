@@ -16,7 +16,7 @@
 
 package com.example.android.apis.view;
 
-import com.example.android.apis.R;
+import android.R.*;
 
 import android.test.ActivityInstrumentationTestCase2;
 import android.test.suitebuilder.annotation.MediumTest;

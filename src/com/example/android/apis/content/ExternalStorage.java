@@ -345,13 +345,15 @@ public class ExternalStorage extends Activity {
      }
 
      boolean hasExternalStoragePrivateFile() {
+    	 boolean exists = false;
          // Get path for the file on external storage.  If external
          // storage is not currently mounted this will fail.
          File file = new File(getExternalFilesDir(null), "DemoFile.jpg");
          if (file != null) {
-             return file.exists();
+        	 exists = true;
          }
-         return false;
+         
+         return exists;
      }
 
 

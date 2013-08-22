@@ -57,8 +57,8 @@ public class FingerPaint extends GraphicsActivity
 
     public class MyView extends View {
 
-        private static final float MINP = 0.25f;
-        private static final float MAXP = 0.75f;
+        //private static final float MINP = 0.25f;
+        //private static final float MAXP = 0.75f;
 
         private Bitmap  mBitmap;
         private Canvas  mCanvas;
@@ -100,7 +100,7 @@ public class FingerPaint extends GraphicsActivity
         private void touch_move(float x, float y) {
             float dx = Math.abs(x - mX);
             float dy = Math.abs(y - mY);
-            if (dx >= TOUCH_TOLERANCE || dy >= TOUCH_TOLERANCE) {
+            if ((dx >= TOUCH_TOLERANCE) || (dy >= TOUCH_TOLERANCE)) {
                 mPath.quadTo(mX, mY, (x + mX)/2, (y + mY)/2);
                 mX = x;
                 mY = y;

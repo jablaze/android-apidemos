@@ -88,10 +88,6 @@ public class AnimationSeeking extends Activity {
 
     public class MyAnimationView extends View implements ValueAnimator.AnimatorUpdateListener, Animator.AnimatorListener {
 
-        private static final int RED = 0xffFF8080;
-        private static final int BLUE = 0xff8080FF;
-        private static final int CYAN = 0xff80ffff;
-        private static final int GREEN = 0xff80ff80;
         private static final float BALL_SIZE = 100f;
 
         public final ArrayList<ShapeHolder> balls = new ArrayList<ShapeHolder>();
@@ -130,12 +126,12 @@ public class AnimationSeeking extends Activity {
             ShapeHolder shapeHolder = new ShapeHolder(drawable);
             shapeHolder.setX(x);
             shapeHolder.setY(y);
-            int red = (int)(100 + Math.random() * 155);
-            int green = (int)(100 + Math.random() * 155);
-            int blue = (int)(100 + Math.random() * 155);
-            int color = 0xff000000 | red << 16 | green << 8 | blue;
+            int red = (int)(100 + (Math.random() * 155));
+            int green = (int)(100 + (Math.random() * 155));
+            int blue = (int)(100 + (Math.random() * 155));
+            int color = 0xff000000 | (red << 16) | (green << 8) | blue;
             Paint paint = drawable.getPaint();
-            int darkColor = 0xff000000 | red/4 << 16 | green/4 << 8 | blue/4;
+            int darkColor = 0xff000000 | ((red/4) << 16) | ((green/4) << 8) | (blue/4);
             RadialGradient gradient = new RadialGradient(37.5f, 12.5f,
                     50f, color, darkColor, Shader.TileMode.CLAMP);
             paint.setShader(gradient);
@@ -152,8 +148,6 @@ public class AnimationSeeking extends Activity {
 
         public void onAnimationUpdate(ValueAnimator animation) {
             invalidate();
-            long playtime = bounceAnim.getCurrentPlayTime();
-            //mSeekBar.setProgress((int)playtime);
         }
 
         public void onAnimationCancel(Animator animation) {

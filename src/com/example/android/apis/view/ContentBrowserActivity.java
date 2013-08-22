@@ -33,7 +33,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
-import android.widget.Button;
 import android.widget.ScrollView;
 import android.widget.SearchView;
 import android.widget.SeekBar;
@@ -102,8 +101,8 @@ public class ContentBrowserActivity extends Activity
             // is changing from its last state, and turning off.
             int diff = mLastSystemUiVis ^ visibility;
             mLastSystemUiVis = visibility;
-            if ((diff&SYSTEM_UI_FLAG_LOW_PROFILE) != 0
-                    && (visibility&SYSTEM_UI_FLAG_LOW_PROFILE) == 0) {
+            if (((diff&SYSTEM_UI_FLAG_LOW_PROFILE) != 0)
+                    && ((visibility&SYSTEM_UI_FLAG_LOW_PROFILE) == 0)) {
                 setNavVisibility(true);
             }
         }

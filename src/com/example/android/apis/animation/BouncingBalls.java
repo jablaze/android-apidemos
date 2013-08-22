@@ -18,7 +18,6 @@ package com.example.android.apis.animation;
 
 // Need the following import to get access to the app resources, since this
 // class is in a sub-package.
-import android.graphics.drawable.ColorDrawable;
 import com.example.android.apis.R;
 
 import android.animation.*;
@@ -54,9 +53,6 @@ public class BouncingBalls extends Activity {
 
         private static final int RED = 0xffFF8080;
         private static final int BLUE = 0xff8080FF;
-        private static final int CYAN = 0xff80ffff;
-        private static final int GREEN = 0xff80ff80;
-
         public final ArrayList<ShapeHolder> balls = new ArrayList<ShapeHolder>();
         AnimatorSet animation = null;
 
@@ -77,8 +73,8 @@ public class BouncingBalls extends Activity {
 
         @Override
         public boolean onTouchEvent(MotionEvent event) {
-            if (event.getAction() != MotionEvent.ACTION_DOWN &&
-                    event.getAction() != MotionEvent.ACTION_MOVE) {
+            if ((event.getAction() != MotionEvent.ACTION_DOWN) &&
+                    (event.getAction() != MotionEvent.ACTION_MOVE)) {
                 return false;
             }
             ShapeHolder newBall = addBall(event.getX(), event.getY());
@@ -159,9 +155,9 @@ public class BouncingBalls extends Activity {
             int red = (int)(Math.random() * 255);
             int green = (int)(Math.random() * 255);
             int blue = (int)(Math.random() * 255);
-            int color = 0xff000000 | red << 16 | green << 8 | blue;
+            int color = 0xff000000 | (red << 16) | (green << 8) | blue;
             Paint paint = drawable.getPaint(); //new Paint(Paint.ANTI_ALIAS_FLAG);
-            int darkColor = 0xff000000 | red/4 << 16 | green/4 << 8 | blue/4;
+            int darkColor = 0xff000000 | ((red/4) << 16) | ((green/4) << 8) | (blue/4);
             RadialGradient gradient = new RadialGradient(37.5f, 12.5f,
                     50f, color, darkColor, Shader.TileMode.CLAMP);
             paint.setShader(gradient);

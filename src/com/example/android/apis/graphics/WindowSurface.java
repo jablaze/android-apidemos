@@ -5,8 +5,6 @@ import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.KeyEvent;
-import android.view.MotionEvent;
 import android.view.SurfaceHolder;
 
 /**
@@ -108,24 +106,38 @@ public class WindowSurface extends Activity implements SurfaceHolder.Callback2 {
         
         float adjDelta(float cur, float minStep, float maxStep) {
             cur += (Math.random()*minStep) - (minStep/2);
-            if (cur < 0 && cur > -minStep) cur = -minStep;
-            if (cur >= 0 && cur < minStep) cur = minStep;
-            if (cur > maxStep) cur = maxStep;
-            if (cur < -maxStep) cur = -maxStep;
+            if ((cur < 0) && (cur > -minStep)) {
+				cur = -minStep;
+			}
+            if ((cur >= 0) && (cur < minStep)) {
+				cur = minStep;
+			}
+            if (cur > maxStep) {
+				cur = maxStep;
+			}
+            if (cur < -maxStep) {
+				cur = -maxStep;
+			}
             return cur;
         }
         
         void step(int width, int height, float minStep, float maxStep) {
             x += dx;
-            if (x <= 0 || x >= (width-1)) {
-                if (x <= 0) x = 0;
-                else if (x >= (width-1)) x = width-1;
+            if ((x <= 0) || (x >= (width-1))) {
+                if (x <= 0) {
+					x = 0;
+				} else if (x >= (width-1)) {
+					x = width-1;
+				}
                 dx = adjDelta(-dx, minStep, maxStep);
             }
             y += dy;
-            if (y <= 0 || y >= (height-1)) {
-                if (y <= 0) y = 0;
-                else if (y >= (height-1)) y = height-1;
+            if ((y <= 0) || (y >= (height-1))) {
+                if (y <= 0) {
+					y = 0;
+				} else if (y >= (height-1)) {
+					y = height-1;
+				}
                 dy = adjDelta(-dy, minStep, maxStep);
             }
         }
@@ -165,14 +177,18 @@ public class WindowSurface extends Activity implements SurfaceHolder.Callback2 {
         
         int makeGreen(int index) {
             int dist = Math.abs(mBrightLine-index);
-            if (dist > 10) return 0;
+            if (dist > 10) {
+				return 0;
+			}
             return (255-(dist*(255/10))) << 8;
         }
         
         @Override
         public void run() {
             mLineWidth = (int)(getResources().getDisplayMetrics().density * 1.5);
-            if (mLineWidth < 1) mLineWidth = 1;
+            if (mLineWidth < 1) {
+				mLineWidth = 1;
+			}
             mMinStep = mLineWidth * 2;
             mMaxStep = mMinStep * 3;
             
@@ -186,7 +202,7 @@ public class WindowSurface extends Activity implements SurfaceHolder.Callback2 {
                 // and we have a surface; report whether we are active or inactive
                 // at this point; exit thread when asked to quit.
                 synchronized (this) {
-                    while (mSurface == null || !mRunning) {
+                    while ((mSurface == null) || !mRunning) {
                         if (mActive) {
                             mActive = false;
                             notify();
@@ -243,9 +259,13 @@ public class WindowSurface extends Activity implements SurfaceHolder.Callback2 {
                     
                     // Draw new line.
                     int red = (int)mColor.x + 128;
-                    if (red > 255) red = 255;
+                    if (red > 255) {
+						red = 255;
+					}
                     int blue = (int)mColor.y + 128;
-                    if (blue > 255) blue = 255;
+                    if (blue > 255) {
+						blue = 255;
+					}
                     int color = 0xff000000 | (red<<16) | blue;
                     mForeground.setColor(color | makeGreen(-2));
                     canvas.drawLine(mPoint1.x, mPoint1.y, mPoint2.x, mPoint2.y, mForeground);
@@ -255,7 +275,9 @@ public class WindowSurface extends Activity implements SurfaceHolder.Callback2 {
                         System.arraycopy(mOld, 0, mOld, 4, (mNumOld-1)*4);
                         System.arraycopy(mOldColor, 0, mOldColor, 1, mNumOld-1);
                     }
-                    if (mNumOld < NUM_OLD) mNumOld++;
+                    if (mNumOld < NUM_OLD) {
+						mNumOld++;
+					}
                     mOld[0] = mPoint1.x;
                     mOld[1] = mPoint1.y;
                     mOld[2] = mPoint2.x;

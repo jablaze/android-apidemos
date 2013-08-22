@@ -82,12 +82,13 @@ public class CustomEvaluator extends Activity {
         }
     }
 
-    public class XYEvaluator implements TypeEvaluator {
+	@SuppressWarnings({ "rawtypes" })
+	public class XYEvaluator implements TypeEvaluator {
         public Object evaluate(float fraction, Object startValue, Object endValue) {
             XYHolder startXY = (XYHolder) startValue;
             XYHolder endXY = (XYHolder) endValue;
-            return new XYHolder(startXY.getX() + fraction * (endXY.getX() - startXY.getX()),
-                    startXY.getY() + fraction * (endXY.getY() - startXY.getY()));
+            return new XYHolder(startXY.getX() + (fraction * (endXY.getX() - startXY.getX())),
+                    startXY.getY() + (fraction * (endXY.getY() - startXY.getY())));
         }
     }
 
@@ -124,7 +125,7 @@ public class CustomEvaluator extends Activity {
 
         private void createAnimation() {
             if (bounceAnim == null) {
-                XYHolder startXY = new XYHolder(0f, 0f);
+                new XYHolder(0f, 0f);
                 XYHolder endXY = new XYHolder(300f, 500f);
                 bounceAnim = ObjectAnimator.ofObject(ballHolder, "xY",
                         new XYEvaluator(), endXY);
@@ -148,9 +149,9 @@ public class CustomEvaluator extends Activity {
             int red = (int)(Math.random() * 255);
             int green = (int)(Math.random() * 255);
             int blue = (int)(Math.random() * 255);
-            int color = 0xff000000 | red << 16 | green << 8 | blue;
+            int color = 0xff000000 | (red << 16) | (green << 8) | blue;
             Paint paint = drawable.getPaint(); //new Paint(Paint.ANTI_ALIAS_FLAG);
-            int darkColor = 0xff000000 | red/4 << 16 | green/4 << 8 | blue/4;
+            int darkColor = 0xff000000 | ((red/4) << 16) | ((green/4) << 8) | (blue/4);
             RadialGradient gradient = new RadialGradient(37.5f, 12.5f,
                     50f, color, darkColor, Shader.TileMode.CLAMP);
             paint.setShader(gradient);

@@ -63,8 +63,6 @@ public class LabelMaker {
         mFullColor = fullColor;
         mStrikeWidth = strikeWidth;
         mStrikeHeight = strikeHeight;
-        mTexelWidth = (float) (1.0 / mStrikeWidth);
-        mTexelHeight = (float) (1.0 / mStrikeHeight);
         mClearPaint = new Paint();
         mClearPaint.setARGB(0, 0, 0, 0);
         mClearPaint.setStyle(Style.FILL);
@@ -219,21 +217,18 @@ public class LabelMaker {
         }
 
         // Is there room for this string on the current line?
-        if (u + width > mStrikeWidth) {
+        if ((u + width) > mStrikeWidth) {
             // No room, go to the next line:
             u = 0;
             v += lineHeight;
             lineHeight = 0;
         }
         lineHeight = Math.max(lineHeight, height);
-        if (v + lineHeight > mStrikeHeight) {
+        if ((v + lineHeight) > mStrikeHeight) {
             throw new IllegalArgumentException("Out of texture space.");
         }
 
-        int u2 = u + width;
         int vBase = v + ascent;
-        int v2 = v + height;
-
         if (drawBackground) {
             background.setBounds(u, v, u + width, v + height);
             background.draw(mCanvas);
@@ -396,8 +391,6 @@ public class LabelMaker {
 
     private int mTextureID;
 
-    private float mTexelWidth;  // Convert texel to U
-    private float mTexelHeight; // Convert texel to V
     private int mU;
     private int mV;
     private int mLineHeight;

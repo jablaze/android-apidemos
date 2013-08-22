@@ -2,6 +2,8 @@ ant.properties
 bin
 build.xml
 gen
+.classpath
+.project
 local.properties
 proguard-project.txt
 project.properties
@@ -15,3 +17,9 @@ out
 *.apk
 lint.xml
 .idea/*
+.DS_Store
+libs/
+tests/.classpath
+tests/.project
+tests/.DS_Store
+

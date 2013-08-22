@@ -16,10 +16,8 @@
 
 package com.example.android.apis.app;
 
-// Need the following import to get access to the app resources, since this
-// class is in a sub-package.
 import com.example.android.apis.R;
-
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Presentation;
@@ -32,7 +30,6 @@ import android.hardware.display.DisplayManager;
 import android.os.Bundle;
 import android.os.Parcel;
 import android.os.Parcelable;
-import android.os.Parcelable.Creator;
 import android.util.Log;
 import android.util.SparseArray;
 import android.view.Display;
@@ -108,7 +105,8 @@ public class PresentationActivity extends Activity
      * call {@link android.app.Activity#setContentView setContentView()} to
      * describe what is to be displayed in the screen.
      */
-    @Override
+    @SuppressLint("InlinedApi")
+	@Override
     protected void onCreate(Bundle savedInstanceState) {
         // Be sure to call the super class.
         super.onCreate(savedInstanceState);
@@ -348,8 +346,8 @@ public class PresentationActivity extends Activity
             CheckBox cb = (CheckBox)v.findViewById(R.id.checkbox_presentation);
             cb.setTag(display);
             cb.setOnCheckedChangeListener(PresentationActivity.this);
-            cb.setChecked(mActivePresentations.indexOfKey(displayId) >= 0
-                    || mSavedPresentationContents.indexOfKey(displayId) >= 0);
+            cb.setChecked((mActivePresentations.indexOfKey(displayId) >= 0)
+                    || (mSavedPresentationContents.indexOfKey(displayId) >= 0));
 
             TextView tv = (TextView)v.findViewById(R.id.display_id);
             tv.setText(v.getContext().getResources().getString(
@@ -379,7 +377,8 @@ public class PresentationActivity extends Activity
             }
         }
 
-        private String getDisplayCategory() {
+        @SuppressLint("InlinedApi")
+		private String getDisplayCategory() {
             return mShowAllDisplaysCheckbox.isChecked() ? null :
                 DisplayManager.DISPLAY_CATEGORY_PRESENTATION;
         }
@@ -402,7 +401,7 @@ public class PresentationActivity extends Activity
         }
 
         @Override
-        protected void onCreate(Bundle savedInstanceState) {
+        public void onCreate(Bundle savedInstanceState) {
             // Be sure to call the super class.
             super.onCreate(savedInstanceState);
 
@@ -446,8 +445,8 @@ public class PresentationActivity extends Activity
         final int photo;
         final int[] colors;
 
-        public static final Creator<PresentationContents> CREATOR =
-                new Creator<PresentationContents>() {
+        @SuppressWarnings("unused")
+		public static final Creator<PresentationContents> CREATOR = new Creator<PresentationContents>() {
             @Override
             public PresentationContents createFromParcel(Parcel in) {
                 return new PresentationContents(in);

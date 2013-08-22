@@ -23,7 +23,6 @@ import android.app.Activity;
 import android.opengl.GLSurfaceView;
 import android.os.Bundle;
 import android.view.SurfaceView;
-import android.view.WindowManager;
 
 /**
  * <h3>Secure Window Activity</h3>

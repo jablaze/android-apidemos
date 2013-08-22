@@ -26,18 +26,18 @@ import android.widget.Button;
 
 public class MediaPlayerDemo extends Activity {
     private Button mlocalvideo;
-    private Button mresourcesvideo;
+    //private Button mresourcesvideo;
     private Button mstreamvideo;
     private Button mlocalaudio;
     private Button mresourcesaudio;
-    private Button mstreamaudio;
+    //private Button mstreamaudio;
     private static final String MEDIA = "media";
     private static final int LOCAL_AUDIO = 1;
-    private static final int STREAM_AUDIO = 2;
+    //private static final int STREAM_AUDIO = 2;
     private static final int RESOURCES_AUDIO = 3;
     private static final int LOCAL_VIDEO = 4;
     private static final int STREAM_VIDEO = 5;
-    private static final int RESOURCES_VIDEO = 6;
+    //private static final int RESOURCES_VIDEO = 6;
 
     @Override
     protected void onCreate(Bundle icicle) {

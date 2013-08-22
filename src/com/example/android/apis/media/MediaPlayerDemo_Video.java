@@ -45,9 +45,9 @@ public class MediaPlayerDemo_Video extends Activity implements
     private String path;
     private Bundle extras;
     private static final String MEDIA = "media";
-    private static final int LOCAL_AUDIO = 1;
-    private static final int STREAM_AUDIO = 2;
-    private static final int RESOURCES_AUDIO = 3;
+    //private static final int LOCAL_AUDIO = 1;
+    //private static final int STREAM_AUDIO = 2;
+    //private static final int RESOURCES_AUDIO = 3;
     private static final int LOCAL_VIDEO = 4;
     private static final int STREAM_VIDEO = 5;
     private boolean mIsVideoSizeKnown = false;
@@ -146,7 +146,7 @@ public class MediaPlayerDemo_Video extends Activity implements
 
     public void onVideoSizeChanged(MediaPlayer mp, int width, int height) {
         Log.v(TAG, "onVideoSizeChanged called");
-        if (width == 0 || height == 0) {
+        if ((width == 0) || (height == 0)) {
             Log.e(TAG, "invalid video width(" + width + ") or height(" + height + ")");
             return;
         }

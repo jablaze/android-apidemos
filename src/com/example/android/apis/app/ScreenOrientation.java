@@ -19,7 +19,6 @@ package com.example.android.apis.app;
 import com.example.android.apis.R;
 
 import android.app.Activity;
-import android.app.admin.DevicePolicyManager;
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.view.View;

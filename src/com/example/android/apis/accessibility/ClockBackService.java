@@ -17,7 +17,6 @@
 package com.example.android.apis.accessibility;
 
 import com.example.android.apis.R;
-
 import android.accessibilityservice.AccessibilityService;
 import android.accessibilityservice.AccessibilityServiceInfo;
 import android.app.Service;

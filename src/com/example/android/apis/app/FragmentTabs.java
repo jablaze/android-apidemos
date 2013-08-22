@@ -15,9 +15,6 @@
  */
 package com.example.android.apis.app;
 
-import com.example.android.apis.R;
-
-
 import android.app.ActionBar;
 import android.app.ActionBar.Tab;
 import android.app.Activity;
@@ -88,7 +85,7 @@ public class FragmentTabs extends Activity {
             // from a previously saved state.  If so, deactivate it, because our
             // initial state is that a tab isn't shown.
             mFragment = mActivity.getFragmentManager().findFragmentByTag(mTag);
-            if (mFragment != null && !mFragment.isDetached()) {
+            if ((mFragment != null) && !mFragment.isDetached()) {
                 FragmentTransaction ft = mActivity.getFragmentManager().beginTransaction();
                 ft.detach(mFragment);
                 ft.commit();

@@ -23,7 +23,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.ServiceConnection;
 import android.os.Bundle;
-import android.os.RemoteException;
 import android.os.IBinder;
 import android.os.RemoteCallbackList;
 import android.util.Log;
@@ -73,10 +72,14 @@ public class IsolatedService extends Service {
      */
     private final IRemoteService.Stub mBinder = new IRemoteService.Stub() {
         public void registerCallback(IRemoteServiceCallback cb) {
-            if (cb != null) mCallbacks.register(cb);
+            if (cb != null) {
+				mCallbacks.register(cb);
+			}
         }
         public void unregisterCallback(IRemoteServiceCallback cb) {
-            if (cb != null) mCallbacks.unregister(cb);
+            if (cb != null) {
+				mCallbacks.unregister(cb);
+			}
         }
     };
     
@@ -86,20 +89,6 @@ public class IsolatedService extends Service {
         stopSelf();
     }
 
-    private void broadcastValue(int value) {
-        // Broadcast to all clients the new value.
-        final int N = mCallbacks.beginBroadcast();
-        for (int i=0; i<N; i++) {
-            try {
-                mCallbacks.getBroadcastItem(i).valueChanged(value);
-            } catch (RemoteException e) {
-                // The RemoteCallbackList will take care of removing
-                // the dead object for us.
-            }
-        }
-        mCallbacks.finishBroadcast();
-    }
-    
     // ----------------------------------------------------------------------
     
     public static class Controller extends Activity {

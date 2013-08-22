@@ -90,8 +90,7 @@ public class LocalServiceActivities {
     public static class Binding extends Activity {
         private boolean mIsBound;
 
-
-        private LocalService mBoundService;
+        //private LocalService mBoundService;
         
         private ServiceConnection mConnection = new ServiceConnection() {
             public void onServiceConnected(ComponentName className, IBinder service) {
@@ -100,7 +99,8 @@ public class LocalServiceActivities {
                 // interact with the service.  Because we have bound to a explicit
                 // service that we know is running in our own process, we can
                 // cast its IBinder to a concrete class and directly access it.
-                mBoundService = ((LocalService.LocalBinder)service).getService();
+            	//The value of this variable is never used
+                //mBoundService = ((LocalService.LocalBinder)service).getService();
                 
                 // Tell the user about this for our demo.
                 Toast.makeText(Binding.this, R.string.local_service_connected,
@@ -112,7 +112,8 @@ public class LocalServiceActivities {
                 // unexpectedly disconnected -- that is, its process crashed.
                 // Because it is running in our same process, we should never
                 // see this happen.
-                mBoundService = null;
+            	//The value of this variable is never used
+                //mBoundService = null;
                 Toast.makeText(Binding.this, R.string.local_service_disconnected,
                         Toast.LENGTH_SHORT).show();
             }

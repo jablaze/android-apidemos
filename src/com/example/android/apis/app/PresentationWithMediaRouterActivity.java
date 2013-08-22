@@ -19,12 +19,12 @@ package com.example.android.apis.app;
 import com.example.android.apis.R;
 import com.example.android.apis.graphics.CubeRenderer;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.MediaRouteActionProvider;
 import android.app.Presentation;
 import android.content.Context;
 import android.content.DialogInterface;
-import android.content.res.Resources;
 import android.media.MediaRouter;
 import android.media.MediaRouter.RouteInfo;
 import android.opengl.GLSurfaceView;
@@ -78,7 +78,8 @@ public class PresentationWithMediaRouterActivity extends Activity {
      * call {@link android.app.Activity#setContentView setContentView()} to
      * describe what is to be displayed in the screen.
      */
-    @Override
+    @SuppressLint("InlinedApi")
+	@Override
     protected void onCreate(Bundle savedInstanceState) {
         // Be sure to call the super class.
         super.onCreate(savedInstanceState);
@@ -99,7 +100,8 @@ public class PresentationWithMediaRouterActivity extends Activity {
         mInfoTextView = (TextView)findViewById(R.id.info);
     }
 
-    @Override
+    @SuppressLint("InlinedApi")
+	@Override
     protected void onResume() {
         // Be sure to call the super class.
         super.onResume();
@@ -138,7 +140,8 @@ public class PresentationWithMediaRouterActivity extends Activity {
         }
     }
 
-    @Override
+    @SuppressLint("InlinedApi")
+	@Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Be sure to call the super class.
         super.onCreateOptionsMenu(menu);
@@ -155,14 +158,15 @@ public class PresentationWithMediaRouterActivity extends Activity {
         return true;
     }
 
-    private void updatePresentation() {
+    @SuppressLint("InlinedApi")
+	private void updatePresentation() {
         // Get the current route and its presentation display.
         MediaRouter.RouteInfo route = mMediaRouter.getSelectedRoute(
-                MediaRouter.ROUTE_TYPE_LIVE_VIDEO);
+        MediaRouter.ROUTE_TYPE_LIVE_VIDEO);
         Display presentationDisplay = route != null ? route.getPresentationDisplay() : null;
 
         // Dismiss the current presentation if the display has changed.
-        if (mPresentation != null && mPresentation.getDisplay() != presentationDisplay) {
+        if ((mPresentation != null) && (mPresentation.getDisplay() != presentationDisplay)) {
             Log.i(TAG, "Dismissing presentation because the current route no longer "
                     + "has a presentation display.");
             mPresentation.dismiss();
@@ -170,7 +174,7 @@ public class PresentationWithMediaRouterActivity extends Activity {
         }
 
         // Show a new presentation if needed.
-        if (mPresentation == null && presentationDisplay != null) {
+        if ((mPresentation == null) && (presentationDisplay != null)) {
             Log.i(TAG, "Showing presentation on display: " + presentationDisplay);
             mPresentation = new DemoPresentation(this, presentationDisplay);
             mPresentation.setOnDismissListener(mOnDismissListener);
@@ -269,10 +273,6 @@ public class PresentationWithMediaRouterActivity extends Activity {
         protected void onCreate(Bundle savedInstanceState) {
             // Be sure to call the super class.
             super.onCreate(savedInstanceState);
-
-            // Get the resources for the context of the presentation.
-            // Notice that we are getting the resources from the context of the presentation.
-            Resources r = getContext().getResources();
 
             // Inflate the layout.
             setContentView(R.layout.presentation_with_media_router_content);

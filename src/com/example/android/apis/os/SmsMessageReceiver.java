@@ -16,28 +16,33 @@
 
 package com.example.android.apis.os;
 
+import android.annotation.TargetApi;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.provider.ContactsContract;
 import android.telephony.SmsMessage;
 
-public class SmsMessageReceiver extends BroadcastReceiver {
-    /** Tag string for our debug logs */
-    private static final String TAG = "SmsMessageReceiver";
+@TargetApi(Build.VERSION_CODES.ECLAIR)
 
+public class SmsMessageReceiver extends BroadcastReceiver {
+ 
     @Override
     public void onReceive(Context context, Intent intent) {
         Bundle extras = intent.getExtras();
-        if (extras == null)
-            return;
+        if (extras == null) {
+			return;
+		}
 
         Object[] pdus = (Object[]) extras.get("pdus");
 
-        for (int i = 0; i < pdus.length; i++) {
+        // For the purposes of this demo, we'll only handle the first received message.
+        int length = Math.min(pdus.length, 1);
+        for (int i = 0; i < length; i++) {
             SmsMessage message = SmsMessage.createFromPdu((byte[]) pdus[i]);
             String fromAddress = message.getOriginatingAddress();
             String fromDisplayName = fromAddress;
@@ -56,8 +61,9 @@ public class SmsMessageReceiver extends BroadcastReceiver {
             // Query the filter URI
             Cursor cursor = context.getContentResolver().query(uri, projection, null, null, null);
             if (cursor != null) {
-                if (cursor.moveToFirst())
-                    fromDisplayName = cursor.getString(0);
+                if (cursor.moveToFirst()) {
+					fromDisplayName = cursor.getString(0);
+				}
 
                 cursor.close();
             }
@@ -70,9 +76,6 @@ public class SmsMessageReceiver extends BroadcastReceiver {
             di.putExtra(SmsReceivedDialog.SMS_FROM_DISPLAY_NAME_EXTRA, fromDisplayName);
             di.putExtra(SmsReceivedDialog.SMS_MESSAGE_EXTRA, message.getMessageBody().toString());
             context.startActivity(di);
-
-            // For the purposes of this demo, we'll only handle the first received message.
-            break;
         }
     }
 }

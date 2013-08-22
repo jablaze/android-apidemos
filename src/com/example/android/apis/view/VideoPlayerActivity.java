@@ -26,7 +26,6 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -116,8 +115,8 @@ public class VideoPlayerActivity extends Activity
             // the state is changing and nav is no longer hidden.
             int diff = mLastSystemUiVis ^ visibility;
             mLastSystemUiVis = visibility;
-            if ((diff&SYSTEM_UI_FLAG_HIDE_NAVIGATION) != 0
-                    && (visibility&SYSTEM_UI_FLAG_HIDE_NAVIGATION) == 0) {
+            if (((diff&SYSTEM_UI_FLAG_HIDE_NAVIGATION) != 0)
+                    && ((visibility&SYSTEM_UI_FLAG_HIDE_NAVIGATION) == 0)) {
                 setNavVisibility(true);
             }
         }

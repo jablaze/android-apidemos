@@ -17,7 +17,6 @@
 package com.example.android.apis.accessibility;
 
 import com.example.android.apis.R;
-
 import android.app.Activity;
 import android.app.Service;
 import android.content.Context;
@@ -34,7 +33,6 @@ import android.view.accessibility.AccessibilityEvent;
 import android.view.accessibility.AccessibilityManager;
 import android.view.accessibility.AccessibilityNodeInfo;
 import android.view.accessibility.AccessibilityNodeProvider;
-
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;

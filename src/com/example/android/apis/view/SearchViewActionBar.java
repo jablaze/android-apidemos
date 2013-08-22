@@ -26,10 +26,7 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.view.View;
 import android.view.Window;
-import android.view.MenuItem.OnActionExpandListener;
-import android.widget.Button;
 import android.widget.SearchView;
 import android.widget.TextView;
 
@@ -83,7 +80,7 @@ public class SearchViewActionBar extends Activity implements SearchView.OnQueryT
             // Try to use the "applications" global search provider
             SearchableInfo info = searchManager.getSearchableInfo(getComponentName());
             for (SearchableInfo inf : searchables) {
-                if (inf.getSuggestAuthority() != null
+                if ((inf.getSuggestAuthority() != null)
                         && inf.getSuggestAuthority().startsWith("applications")) {
                     info = inf;
                 }

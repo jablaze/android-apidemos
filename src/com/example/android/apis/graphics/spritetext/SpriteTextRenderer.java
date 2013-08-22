@@ -16,6 +16,7 @@
 
 package com.example.android.apis.graphics.spritetext;
 
+import com.example.android.apis.R;
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.ByteBuffer;
@@ -34,9 +35,6 @@ import android.opengl.GLSurfaceView;
 import android.opengl.GLU;
 import android.opengl.GLUtils;
 import android.os.SystemClock;
-import android.util.Log;
-
-import com.example.android.apis.R;
 
 public class SpriteTextRenderer implements GLSurfaceView.Renderer{
 
@@ -95,8 +93,7 @@ public class SpriteTextRenderer implements GLSurfaceView.Renderer{
         gl.glTexEnvf(GL10.GL_TEXTURE_ENV, GL10.GL_TEXTURE_ENV_MODE,
                 GL10.GL_REPLACE);
 
-        InputStream is = mContext.getResources()
-                .openRawResource(R.raw.robot);
+        InputStream is = mContext.getResources().openRawResource(R.raw.robot);
         Bitmap bitmap;
         try {
             bitmap = BitmapFactory.decodeStream(is);
@@ -172,15 +169,6 @@ public class SpriteTextRenderer implements GLSurfaceView.Renderer{
         gl.glTexParameterx(GL10.GL_TEXTURE_2D, GL10.GL_TEXTURE_WRAP_T,
                 GL10.GL_REPEAT);
 
-        if (false) {
-            long time = SystemClock.uptimeMillis();
-            if (mLastTime != 0) {
-                long delta = time - mLastTime;
-                Log.w("time", Long.toString(delta));
-            }
-            mLastTime = time;
-        }
-
         long time = SystemClock.uptimeMillis() % 4000L;
         float angle = 0.090f * ((int) time);
 
@@ -232,8 +220,8 @@ public class SpriteTextRenderer implements GLSurfaceView.Renderer{
         float sy = mScratch[5];
         float height = mLabels.getHeight(labelId);
         float width = mLabels.getWidth(labelId);
-        float tx = sx - width * 0.5f;
-        float ty = sy - height * 0.5f;
+        float tx = sx - (width * 0.5f);
+        float ty = sy - (height * 0.5f);
         mLabels.draw(gl, tx, ty, labelId);
     }
 
@@ -275,7 +263,6 @@ public class SpriteTextRenderer implements GLSurfaceView.Renderer{
     private Projector mProjector;
     private NumericSprite mNumericSprite;
     private float[] mScratch = new float[8];
-    private long mLastTime;
 }
 
 class Triangle {
@@ -303,13 +290,13 @@ class Triangle {
 
         for (int i = 0; i < VERTS; i++) {
             for(int j = 0; j < 3; j++) {
-                mFVertexBuffer.put(sCoords[i*3+j]);
+                mFVertexBuffer.put(sCoords[(i*3)+j]);
             }
         }
 
         for (int i = 0; i < VERTS; i++) {
             for(int j = 0; j < 2; j++) {
-                mTexBuffer.put(sCoords[i*3+j] * 2.0f + 0.5f);
+                mTexBuffer.put((sCoords[(i*3)+j] * 2.0f) + 0.5f);
             }
         }
 
@@ -336,7 +323,7 @@ class Triangle {
     }
 
     public float getY(int vertex) {
-        return sCoords[3*vertex+1];
+        return sCoords[(3*vertex)+1];
     }
 
     private final static int VERTS = 3;

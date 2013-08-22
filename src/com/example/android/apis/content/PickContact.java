@@ -20,13 +20,12 @@ package com.example.android.apis.content;
 // class is in a sub-package.
 import com.example.android.apis.R;
 
+import android.annotation.TargetApi;
 import android.app.Activity;
-import android.app.AlarmManager;
-import android.app.PendingIntent;
 import android.content.Intent;
 import android.database.Cursor;
 import android.net.Uri;
-import android.os.SystemClock;
+import android.os.Build;
 import android.os.Bundle;
 import android.provider.BaseColumns;
 import android.provider.ContactsContract;
@@ -34,8 +33,6 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.Toast;
-
-import java.util.Calendar;
 
 /**
  * Demonstrates launching the contacts app to pick a contact.  Does not
@@ -63,7 +60,8 @@ public class PickContact extends Activity {
         }
     }
     
-    @Override
+    @TargetApi(Build.VERSION_CODES.ECLAIR)
+	@Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
@@ -93,7 +91,7 @@ public class PickContact extends Activity {
                 try {
                     c = getContentResolver().query(uri, new String[] { BaseColumns._ID },
                             null, null, null);
-                    if (c != null && c.moveToFirst()) {
+                    if ((c != null) && c.moveToFirst()) {
                         int id = c.getInt(0);
                         if (mToast != null) {
                             mToast.cancel();

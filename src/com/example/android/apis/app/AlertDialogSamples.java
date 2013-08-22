@@ -74,7 +74,8 @@ public class AlertDialogSamples extends Activity {
     private int mProgress;
     private Handler mProgressHandler;
 
-    @Override
+    @Deprecated
+	@Override
     protected Dialog onCreateDialog(int id) {
         switch (id) {
         case DIALOG_YES_NO_MESSAGE:

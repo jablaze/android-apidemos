@@ -25,11 +25,6 @@ import android.animation.*;
 import android.app.Activity;
 import android.content.Context;
 import android.graphics.Canvas;
-import android.graphics.Paint;
-import android.graphics.RadialGradient;
-import android.graphics.Shader;
-import android.graphics.drawable.ShapeDrawable;
-import android.graphics.drawable.shapes.OvalShape;
 import android.os.Bundle;
 import android.view.View;
 import android.view.animation.AccelerateInterpolator;
@@ -62,17 +57,13 @@ public class AnimationCloning extends Activity {
 
         public final ArrayList<ShapeHolder> balls = new ArrayList<ShapeHolder>();
         AnimatorSet animation = null;
-        private float mDensity;
+        //private float mDensity;
 
         public MyAnimationView(Context context) {
             super(context);
 
-            mDensity = getContext().getResources().getDisplayMetrics().density;
-
-            ShapeHolder ball0 = addBall(50f, 25f);
-            ShapeHolder ball1 = addBall(150f, 25f);
-            ShapeHolder ball2 = addBall(250f, 25f);
-            ShapeHolder ball3 = addBall(350f, 25f);
+            //The value of this variable is never used
+            //mDensity = getContext().getResources().getDisplayMetrics().density;
         }
 
         private void createAnimation() {
@@ -101,27 +92,6 @@ public class AnimationCloning extends Activity {
                 animation.playTogether(anim1, anim2, s1);
                 animation.playSequentially(s1, s2);
             }
-        }
-
-        private ShapeHolder addBall(float x, float y) {
-            OvalShape circle = new OvalShape();
-            circle.resize(50f * mDensity, 50f * mDensity);
-            ShapeDrawable drawable = new ShapeDrawable(circle);
-            ShapeHolder shapeHolder = new ShapeHolder(drawable);
-            shapeHolder.setX(x - 25f);
-            shapeHolder.setY(y - 25f);
-            int red = (int)(100 + Math.random() * 155);
-            int green = (int)(100 + Math.random() * 155);
-            int blue = (int)(100 + Math.random() * 155);
-            int color = 0xff000000 | red << 16 | green << 8 | blue;
-            Paint paint = drawable.getPaint(); //new Paint(Paint.ANTI_ALIAS_FLAG);
-            int darkColor = 0xff000000 | red/4 << 16 | green/4 << 8 | blue/4;
-            RadialGradient gradient = new RadialGradient(37.5f, 12.5f,
-                    50f, color, darkColor, Shader.TileMode.CLAMP);
-            paint.setShader(gradient);
-            shapeHolder.setPaint(paint);
-            balls.add(shapeHolder);
-            return shapeHolder;
         }
 
         @Override

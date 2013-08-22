@@ -18,7 +18,9 @@ package com.example.android.apis.view;
 
 import com.example.android.apis.R;
 
+import android.annotation.TargetApi;
 import android.app.Activity;
+import android.os.Build;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.Window;
@@ -32,24 +34,25 @@ import android.widget.SearchView;
  */
 public class SearchViewFilterMode extends Activity implements SearchView.OnQueryTextListener {
 
-    private static final String TAG = "SearchViewFilterMode";
-
+    //private static final String TAG = "SearchViewFilterMode";
     private SearchView mSearchView;
     private ListView mListView;
-    private ArrayAdapter<String> mAdapter;
+    //private ArrayAdapter<String> mAdapter;
 
     private final String[] mStrings = Cheeses.sCheeseStrings;
 
-    @Override
+    @TargetApi(Build.VERSION_CODES.HONEYCOMB)
+	@Override
     protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+    	super.onCreate(savedInstanceState);
         getWindow().requestFeature(Window.FEATURE_ACTION_BAR);
 
         setContentView(R.layout.searchview_filter);
 
         mSearchView = (SearchView) findViewById(R.id.search_view);
         mListView = (ListView) findViewById(R.id.list_view);
-        mListView.setAdapter(mAdapter = new ArrayAdapter<String>(this,
+        
+        mListView.setAdapter(new ArrayAdapter<String>(this,
                 android.R.layout.simple_list_item_1,
                 mStrings));
         mListView.setTextFilterEnabled(true);

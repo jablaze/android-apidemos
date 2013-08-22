@@ -18,6 +18,7 @@ package com.example.android.apis.graphics;
 
 import com.example.android.apis.R;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.*;
 import android.os.Bundle;
@@ -43,18 +44,9 @@ public class ColorMatrixSample extends GraphicsActivity {
                                                    R.drawable.balloons);
         }
 
-        private static void setTranslate(ColorMatrix cm, float dr, float dg,
-                                         float db, float da) {
-            cm.set(new float[] {
-                   2, 0, 0, 0, dr,
-                   0, 2, 0, 0, dg,
-                   0, 0, 2, 0, db,
-                   0, 0, 0, 1, da });
-        }
-
         private static void setContrast(ColorMatrix cm, float contrast) {
             float scale = contrast + 1.f;
-               float translate = (-.5f * scale + .5f) * 255.f;
+               float translate = ((-.5f * scale) + .5f) * 255.f;
             cm.set(new float[] {
                    scale, 0, 0, 0, translate,
                    0, scale, 0, 0, translate,
@@ -64,7 +56,7 @@ public class ColorMatrixSample extends GraphicsActivity {
 
         private static void setContrastTranslateOnly(ColorMatrix cm, float contrast) {
             float scale = contrast + 1.f;
-               float translate = (-.5f * scale + .5f) * 255.f;
+               float translate = ((-.5f * scale) + .5f) * 255.f;
             cm.set(new float[] {
                    1, 0, 0, 0, translate,
                    0, 1, 0, 0, translate,
@@ -74,7 +66,6 @@ public class ColorMatrixSample extends GraphicsActivity {
 
         private static void setContrastScaleOnly(ColorMatrix cm, float contrast) {
             float scale = contrast + 1.f;
-               float translate = (-.5f * scale + .5f) * 255.f;
             cm.set(new float[] {
                    scale, 0, 0, 0, 0,
                    0, scale, 0, 0, 0,
@@ -82,7 +73,8 @@ public class ColorMatrixSample extends GraphicsActivity {
                    0, 0, 0, 1, 0 });
         }
 
-        @Override protected void onDraw(Canvas canvas) {
+        @SuppressLint("DrawAllocation")
+		@Override protected void onDraw(Canvas canvas) {
             Paint paint = mPaint;
             float x = 20;
             float y = 20;
@@ -112,7 +104,7 @@ public class ColorMatrixSample extends GraphicsActivity {
 
             setContrastTranslateOnly(cm, contrast);
             paint.setColorFilter(new ColorMatrixColorFilter(cm));
-            canvas.drawBitmap(mBitmap, x, y + 2*(mBitmap.getHeight() + 10),
+            canvas.drawBitmap(mBitmap, x, y + (2*(mBitmap.getHeight() + 10)),
                               paint);
 
             invalidate();

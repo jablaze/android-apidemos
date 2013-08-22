@@ -20,7 +20,6 @@ import android.graphics.Paint;
 import android.graphics.RadialGradient;
 import android.graphics.drawable.ShapeDrawable;
 import android.graphics.drawable.shapes.Shape;
-import android.view.View;
 
 /**
  * A data structure that holds a Shape and various properties that can be used to define
@@ -31,7 +30,6 @@ public class ShapeHolder {
     private ShapeDrawable shape;
     private int color;
     private RadialGradient gradient;
-    private float alpha = 1f;
     private Paint paint;
 
     public void setPaint(Paint value) {
@@ -74,7 +72,6 @@ public class ShapeHolder {
     }
 
     public void setAlpha(float alpha) {
-        this.alpha = alpha;
         shape.setAlpha((int)((alpha * 255f) + .5f));
     }
 

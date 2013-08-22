@@ -81,8 +81,10 @@ public class ActionBarSettingsActionProviderActivity extends Activity {
 
         /**
          * {@inheritDoc}
+         * @deprecated
          */
-        @Override
+        @Deprecated
+		@Override
         public View onCreateActionView() {
             // Inflate the action view to be shown on the action bar.
             LayoutInflater layoutInflater = LayoutInflater.from(mContext);

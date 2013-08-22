@@ -32,7 +32,6 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
-import android.widget.SeekBar;
 
 /**
  * This application demonstrates the seeking capability of ValueAnimator. The SeekBar in the
@@ -41,8 +40,8 @@ import android.widget.SeekBar;
  */
 public class ListFlipper extends Activity {
 
-    private static final int DURATION = 1500;
-    private SeekBar mSeekBar;
+    //private static final int DURATION = 1500;
+    //private SeekBar mSeekBar;
 
     private static final String[] LIST_STRINGS_EN = new String[] {
             "One",
@@ -121,6 +120,4 @@ public class ListFlipper extends Activity {
         });
         visToInvis.start();
     }
-
-
 }

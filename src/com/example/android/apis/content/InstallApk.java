@@ -20,30 +20,23 @@ package com.example.android.apis.content;
 // class is in a sub-package.
 import com.example.android.apis.R;
 
+import android.annotation.TargetApi;
 import android.app.Activity;
-import android.content.ContentProvider;
-import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
-import android.content.ContentProvider.PipeDataWriter;
-import android.content.res.AssetFileDescriptor;
-import android.database.Cursor;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
-import android.os.ParcelFileDescriptor;
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
-
 
 /**
  * Demonstration of styled text resources.
@@ -93,7 +86,8 @@ public class InstallApk extends Activity {
     }
 
     private OnClickListener mUnknownSourceListener = new OnClickListener() {
-        public void onClick(View v) {
+        @TargetApi(Build.VERSION_CODES.ICE_CREAM_SANDWICH)
+		public void onClick(View v) {
             Intent intent = new Intent(Intent.ACTION_INSTALL_PACKAGE);
             intent.setData(Uri.fromFile(prepareApk("HelloActivity.apk")));
             startActivity(intent);
@@ -101,19 +95,20 @@ public class InstallApk extends Activity {
     };
 
     private OnClickListener mMySourceListener = new OnClickListener() {
-        public void onClick(View v) {
+        @TargetApi(Build.VERSION_CODES.ICE_CREAM_SANDWICH)
+		public void onClick(View v) {
             Intent intent = new Intent(Intent.ACTION_INSTALL_PACKAGE);
             intent.setData(Uri.fromFile(prepareApk("HelloActivity.apk")));
             intent.putExtra(Intent.EXTRA_NOT_UNKNOWN_SOURCE, true);
             intent.putExtra(Intent.EXTRA_RETURN_RESULT, true);
-            intent.putExtra(Intent.EXTRA_INSTALLER_PACKAGE_NAME,
-                    getApplicationInfo().packageName);
+            intent.putExtra(Intent.EXTRA_INSTALLER_PACKAGE_NAME, getApplicationInfo().packageName);
             startActivityForResult(intent, REQUEST_INSTALL);
         }
     };
 
     private OnClickListener mReplaceListener = new OnClickListener() {
-        public void onClick(View v) {
+        @TargetApi(Build.VERSION_CODES.ICE_CREAM_SANDWICH)
+		public void onClick(View v) {
             Intent intent = new Intent(Intent.ACTION_INSTALL_PACKAGE);
             intent.setData(Uri.fromFile(prepareApk("HelloActivity.apk")));
             intent.putExtra(Intent.EXTRA_NOT_UNKNOWN_SOURCE, true);
@@ -126,7 +121,8 @@ public class InstallApk extends Activity {
     };
 
     private OnClickListener mUninstallListener = new OnClickListener() {
-        public void onClick(View v) {
+        @TargetApi(Build.VERSION_CODES.ICE_CREAM_SANDWICH)
+		public void onClick(View v) {
             Intent intent = new Intent(Intent.ACTION_UNINSTALL_PACKAGE);
             intent.setData(Uri.parse(
                     "package:com.example.android.helloactivity"));
@@ -135,7 +131,8 @@ public class InstallApk extends Activity {
     };
 
     private OnClickListener mUninstallResultListener = new OnClickListener() {
-        public void onClick(View v) {
+        @TargetApi(Build.VERSION_CODES.ICE_CREAM_SANDWICH)
+		public void onClick(View v) {
             Intent intent = new Intent(Intent.ACTION_UNINSTALL_PACKAGE);
             intent.setData(Uri.parse(
                     "package:com.example.android.helloactivity"));

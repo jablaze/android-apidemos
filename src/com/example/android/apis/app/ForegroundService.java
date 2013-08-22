@@ -147,7 +147,8 @@ public class ForegroundService extends Service {
     // This is the old onStart method that will be called on the pre-2.0
     // platform.  On 2.0 or later we override onStartCommand() so this
     // method will not be called.
-    @Override
+    @Deprecated
+	@Override
     public void onStart(Intent intent, int startId) {
         handleCommand(intent);
     }

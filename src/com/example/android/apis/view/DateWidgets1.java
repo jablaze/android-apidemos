@@ -88,7 +88,8 @@ public class DateWidgets1 extends Activity {
         updateDisplay();
     }
 
-    @Override
+    @Deprecated
+	@Override
     protected Dialog onCreateDialog(int id) {
         switch (id) {
             case TIME_DIALOG_ID:
@@ -102,7 +103,8 @@ public class DateWidgets1 extends Activity {
         return null;
     }
 
-    @Override
+    @Deprecated
+	@Override
     protected void onPrepareDialog(int id, Dialog dialog) {
         switch (id) {
             case TIME_DIALOG_ID:
@@ -148,9 +150,10 @@ public class DateWidgets1 extends Activity {
             };
 
     private static String pad(int c) {
-        if (c >= 10)
-            return String.valueOf(c);
-        else
-            return "0" + String.valueOf(c);
+        if (c >= 10) {
+			return String.valueOf(c);
+		} else {
+			return "0" + String.valueOf(c);
+		}
     }
 }

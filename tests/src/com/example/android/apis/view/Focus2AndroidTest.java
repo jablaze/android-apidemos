@@ -16,7 +16,7 @@
 
 package com.example.android.apis.view;
 
-import com.example.android.apis.R;
+import android.R.*;
 
 import android.content.Context;
 import android.test.AndroidTestCase;

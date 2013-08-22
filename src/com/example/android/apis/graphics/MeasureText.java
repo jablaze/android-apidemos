@@ -29,24 +29,6 @@ public class MeasureText extends GraphicsActivity {
         setContentView(new SampleView(this));
     }
 
-    private static final int WIDTH = 50;
-    private static final int HEIGHT = 50;
-    private static final int STRIDE = 64;   // must be >= WIDTH
-
-    private static int[] createColors() {
-        int[] colors = new int[STRIDE * HEIGHT];
-        for (int y = 0; y < HEIGHT; y++) {
-            for (int x = 0; x < WIDTH; x++) {
-                int r = x * 255 / (WIDTH - 1);
-                int g = y * 255 / (HEIGHT - 1);
-                int b = 255 - Math.min(r, g);
-                int a = Math.max(r, g);
-                colors[y * STRIDE + x] = (a << 24) | (r << 16) | (g << 8) | b;
-            }
-        }
-        return colors;
-    }
-
     private static class SampleView extends View {
         private Paint   mPaint;
         private float   mOriginX = 10;
@@ -80,15 +62,15 @@ public class MeasureText extends GraphicsActivity {
             mPaint.setColor(Color.BLACK);
             canvas.drawText(text, 0, 0, mPaint);
 
-            float[] pts = new float[2 + count*2];
+            float[] pts = new float[2 + (count*2)];
             float x = 0;
             float y = 0;
             pts[0] = x;
             pts[1] = y;
             for (int i = 0; i < count; i++) {
                 x += widths[i];
-                pts[2 + i*2] = x;
-                pts[2 + i*2 + 1] = y;
+                pts[2 + (i*2)] = x;
+                pts[2 + (i*2) + 1] = y;
             }
             mPaint.setColor(Color.RED);
             mPaint.setStrokeWidth(0);

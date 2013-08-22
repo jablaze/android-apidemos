@@ -17,7 +17,6 @@
 package com.example.android.apis.accessibility;
 
 import com.example.android.apis.R;
-
 import android.accessibilityservice.AccessibilityService;
 import android.text.TextUtils;
 import android.util.Log;
@@ -105,7 +104,7 @@ public class TaskBackService extends AccessibilityService implements OnInitListe
 
         // Determine what the task is and whether or not it's complete, based on
         // the text inside the label, and the state of the check-box.
-        if (rowNode.getChildCount() < 2 || !rowNode.getChild(1).isCheckable()) {
+        if ((rowNode.getChildCount() < 2) || !rowNode.getChild(1).isCheckable()) {
             rowNode.recycle();
             return;
         }

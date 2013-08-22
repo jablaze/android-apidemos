@@ -16,7 +16,7 @@
 
 package com.example.android.apis.app;
 
-import com.example.android.apis.R;
+import android.R.*;
 import com.example.android.apis.view.Focus2ActivityTest;
 
 import android.content.Context;

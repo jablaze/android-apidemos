@@ -31,8 +31,8 @@ public class RoundRects extends GraphicsActivity {
     }
 
     private static class SampleView extends View {
-        private Path    mPath;
-        private Paint   mPaint;
+        //private Path    mPath;
+        //private Paint   mPaint;
         private Rect    mRect;
         private GradientDrawable mDrawable;
 
@@ -40,8 +40,10 @@ public class RoundRects extends GraphicsActivity {
             super(context);
             setFocusable(true);
 
-            mPath = new Path();
-            mPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
+            //The value of this variable is never used
+            //mPath = new Path();
+            //The value of this variable is never used
+            //mPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
             mRect = new Rect(0, 0, 120, 120);
 
             mDrawable = new GradientDrawable(GradientDrawable.Orientation.TL_BR,

@@ -53,7 +53,7 @@ import com.example.android.apis.R;
  */
 public class ServiceStartArguments extends Service {
     private NotificationManager mNM;
-    private Intent mInvokeIntent;
+    //private Intent mInvokeIntent;
     private volatile Looper mServiceLooper;
     private volatile ServiceHandler mServiceHandler;
     
@@ -81,7 +81,7 @@ public class ServiceStartArguments extends Service {
         
             // Normally we would do some work here...  for our sample, we will
             // just sleep for 5 seconds.
-            long endTime = System.currentTimeMillis() + 5*1000;
+            long endTime = System.currentTimeMillis() + (5*1000);
             while (System.currentTimeMillis() < endTime) {
                 synchronized (this) {
                     try {
@@ -108,7 +108,8 @@ public class ServiceStartArguments extends Service {
         
         // This is who should be launched if the user selects our persistent
         // notification.
-        mInvokeIntent = new Intent(this, Controller.class);
+        //The value of this variable is never used
+        //mInvokeIntent = new Intent(this, Controller.class);
 
         // Start up the thread running the service.  Note that we create a
         // separate thread because the service normally runs in the process's

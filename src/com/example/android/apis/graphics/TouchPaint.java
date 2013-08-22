@@ -21,7 +21,6 @@ import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
-import android.graphics.Rect;
 import android.graphics.RectF;
 import android.os.Bundle;
 import android.os.Handler;
@@ -227,7 +226,7 @@ public class TouchPaint extends GraphicsActivity {
      */
     class PaintView extends View {
         private static final int FADE_ALPHA = 0x06;
-        private static final int MAX_FADE_STEPS = 256 / FADE_ALPHA + 4;
+        private static final int MAX_FADE_STEPS = (256 / FADE_ALPHA) + 4;
         private static final int TRACKBALL_SCALE = 10;
 
         private static final int SPLAT_VECTORS = 40;
@@ -265,7 +264,7 @@ public class TouchPaint extends GraphicsActivity {
         }
 
         public void fade() {
-            if (mCanvas != null && mFadeSteps < MAX_FADE_STEPS) {
+            if ((mCanvas != null) && (mFadeSteps < MAX_FADE_STEPS)) {
                 mCanvas.drawPaint(mFadePaint);
                 invalidate();
 
@@ -277,12 +276,16 @@ public class TouchPaint extends GraphicsActivity {
         protected void onSizeChanged(int w, int h, int oldw, int oldh) {
             int curW = mBitmap != null ? mBitmap.getWidth() : 0;
             int curH = mBitmap != null ? mBitmap.getHeight() : 0;
-            if (curW >= w && curH >= h) {
+            if ((curW >= w) && (curH >= h)) {
                 return;
             }
 
-            if (curW < w) curW = w;
-            if (curH < h) curH = h;
+            if (curW < w) {
+				curW = w;
+			}
+            if (curH < h) {
+				curH = h;
+			}
 
             Bitmap newBitmap = Bitmap.createBitmap(curW, curH, Bitmap.Config.ARGB_8888);
             Canvas newCanvas = new Canvas();
@@ -310,7 +313,7 @@ public class TouchPaint extends GraphicsActivity {
                 advanceColor();
             }
 
-            if (action == MotionEvent.ACTION_DOWN || action == MotionEvent.ACTION_MOVE) {
+            if ((action == MotionEvent.ACTION_DOWN) || (action == MotionEvent.ACTION_MOVE)) {
                 final int N = event.getHistorySize();
                 final float scaleX = event.getXPrecision() * TRACKBALL_SCALE;
                 final float scaleY = event.getYPrecision() * TRACKBALL_SCALE;
@@ -357,7 +360,7 @@ public class TouchPaint extends GraphicsActivity {
             if ((buttonState & MotionEvent.BUTTON_TERTIARY) != 0) {
                 // Splat paint when the middle mouse button or second stylus button is pressed.
                 mode = PaintMode.Splat;
-            } else if (isTouch || (buttonState & MotionEvent.BUTTON_PRIMARY) != 0) {
+            } else if (isTouch || ((buttonState & MotionEvent.BUTTON_PRIMARY) != 0)) {
                 // Draw paint when touching or if the primary button is pressed.
                 mode = PaintMode.Draw;
             } else {
@@ -366,8 +369,8 @@ public class TouchPaint extends GraphicsActivity {
             }
 
             final int action = event.getActionMasked();
-            if (action == MotionEvent.ACTION_DOWN || action == MotionEvent.ACTION_MOVE
-                    || action == MotionEvent.ACTION_HOVER_MOVE) {
+            if ((action == MotionEvent.ACTION_DOWN) || (action == MotionEvent.ACTION_MOVE)
+                    || (action == MotionEvent.ACTION_HOVER_MOVE)) {
                 final int N = event.getHistorySize();
                 final int P = event.getPointerCount();
                 for (int i = 0; i < N; i++) {
@@ -419,7 +422,7 @@ public class TouchPaint extends GraphicsActivity {
                 float major, float minor, float orientation,
                 float distance, float tilt) {
             if (mBitmap != null) {
-                if (major <= 0 || minor <= 0) {
+                if ((major <= 0) || (minor <= 0)) {
                     // If size is not available, use a default value.
                     major = minor = 16;
                 }
@@ -458,11 +461,11 @@ public class TouchPaint extends GraphicsActivity {
         private void drawOval(Canvas canvas, float x, float y, float major, float minor,
                 float orientation, Paint paint) {
             canvas.save(Canvas.MATRIX_SAVE_FLAG);
-            canvas.rotate((float) (orientation * 180 / Math.PI), x, y);
-            mReusableOvalRect.left = x - minor / 2;
-            mReusableOvalRect.right = x + minor / 2;
-            mReusableOvalRect.top = y - major / 2;
-            mReusableOvalRect.bottom = y + major / 2;
+            canvas.rotate((float) ((orientation * 180) / Math.PI), x, y);
+            mReusableOvalRect.left = x - (minor / 2);
+            mReusableOvalRect.right = x + (minor / 2);
+            mReusableOvalRect.top = y - (major / 2);
+            mReusableOvalRect.bottom = y + (major / 2);
             canvas.drawOval(mReusableOvalRect, paint);
             canvas.restore();
         }
@@ -479,7 +482,7 @@ public class TouchPaint extends GraphicsActivity {
          */
         private void drawSplat(Canvas canvas, float x, float y, float orientation,
                 float distance, float tilt, Paint paint) {
-            float z = distance * 2 + 10;
+            float z = (distance * 2) + 10;
 
             // Calculate the center of the spray.
             float nx = (float) (Math.sin(orientation) * Math.sin(tilt));
@@ -504,13 +507,13 @@ public class TouchPaint extends GraphicsActivity {
 
                 // Apply the nozzle tilt angle.
                 double temp = vy;
-                vy = temp * Math.cos(tilt) - vz * Math.sin(tilt);
-                vz = temp * Math.sin(tilt) + vz * Math.cos(tilt);
+                vy = (temp * Math.cos(tilt)) - (vz * Math.sin(tilt));
+                vz = (temp * Math.sin(tilt)) + (vz * Math.cos(tilt));
 
                 // Apply the nozzle orientation angle.
                 temp = vx;
-                vx = temp * Math.cos(orientation) - vy * Math.sin(orientation);
-                vy = temp * Math.sin(orientation) + vy * Math.cos(orientation);
+                vx = (temp * Math.cos(orientation)) - (vy * Math.sin(orientation));
+                vy = (temp * Math.sin(orientation)) + (vy * Math.cos(orientation));
 
                 // Determine where the paint will hit the surface.
                 if (vz < 0.05) {
@@ -521,7 +524,7 @@ public class TouchPaint extends GraphicsActivity {
                 float py = (float) (vy * pd);
 
                 // Throw some paint at this location, relative to the center of the spray.
-                mCanvas.drawCircle(x + px - cx, y + py - cy, 1.0f, paint);
+                mCanvas.drawCircle((x + px) - cx, (y + py) - cy, 1.0f, paint);
             }
         }
     }

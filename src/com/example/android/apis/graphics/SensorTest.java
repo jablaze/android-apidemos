@@ -34,47 +34,6 @@ public class SensorTest extends GraphicsActivity {
     private SampleView mView;
     private float[] mValues;
 
-    private static class RunAve {
-        private final float[] mWeights;
-        private final float mWeightScale;
-        private final float[] mSamples;
-        private final int mDepth;
-        private int mCurr;
-
-        public RunAve(float[] weights) {
-            mWeights = weights;
-
-            float sum = 0;
-            for (int i = 0; i < weights.length; i++) {
-                sum += weights[i];
-            }
-            mWeightScale = 1 / sum;
-
-            mDepth = weights.length;
-            mSamples = new float[mDepth];
-            mCurr = 0;
-        }
-
-        public void addSample(float value) {
-            mSamples[mCurr] = value;
-            mCurr = (mCurr + 1) % mDepth;
-        }
-
-        public float computeAve() {
-            final int depth = mDepth;
-            int index = mCurr;
-            float sum = 0;
-            for (int i = 0; i < depth; i++) {
-                sum += mWeights[i] * mSamples[index];
-                index -= 1;
-                if (index < 0) {
-                    index = depth - 1;
-                }
-            }
-            return sum * mWeightScale;
-        }
-    };
-
     private final SensorEventListener mListener = new SensorEventListener() {
 
         private final float[] mScale = new float[] { 2, 2.5f, 0.5f };   // accel
@@ -103,7 +62,7 @@ public class SensorTest extends GraphicsActivity {
             }
 
             long now = android.os.SystemClock.uptimeMillis();
-            if (now - mLastGestureTime > 1000) {
+            if ((now - mLastGestureTime) > 1000) {
                 mLastGestureTime = 0;
 
                 float x = diff[0];
@@ -141,28 +100,23 @@ public class SensorTest extends GraphicsActivity {
         mSensor = mSensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
         mView = new SampleView(this);
         setContentView(mView);
-        if (false) Log.d(TAG, "create " + mSensorManager);
     }
 
     @Override
     protected void onResume() {
         super.onResume();
         mSensorManager.registerListener(mListener, mSensor, SensorManager.SENSOR_DELAY_FASTEST);
-        if (false) Log.d(TAG, "resume " + mSensorManager);
     }
 
     @Override
     protected void onStop() {
         mSensorManager.unregisterListener(mListener);
         super.onStop();
-        if (false) Log.d(TAG, "stop " + mSensorManager);
     }
 
     private class SampleView extends View {
         private Paint   mPaint = new Paint();
         private Path    mPath = new Path();
-        private boolean mAnimate;
-
         public SampleView(Context context) {
             super(context);
 
@@ -198,15 +152,11 @@ public class SensorTest extends GraphicsActivity {
 
         @Override
         protected void onAttachedToWindow() {
-            mAnimate = true;
-            if (false) Log.d(TAG, "onAttachedToWindow. mAnimate="+mAnimate);
             super.onAttachedToWindow();
         }
 
         @Override
         protected void onDetachedFromWindow() {
-            mAnimate = false;
-            if (false) Log.d(TAG, "onAttachedToWindow. mAnimate="+mAnimate);
             super.onDetachedFromWindow();
         }
     }

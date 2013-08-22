@@ -27,7 +27,6 @@ import javax.microedition.khronos.egl.EGLConfig;
 import javax.microedition.khronos.opengles.GL;
 import javax.microedition.khronos.opengles.GL10;
 import javax.microedition.khronos.opengles.GL11;
-import javax.microedition.khronos.opengles.GL11Ext;
 import javax.microedition.khronos.opengles.GL11ExtensionPack;
 
 import android.app.Activity;
@@ -51,7 +50,7 @@ public class CubeMapActivity extends Activity {
         private boolean mContextSupportsCubeMap;
         private Grid mGrid;
         private int mCubeMapTextureID;
-        private boolean mUseTexGen = false;
+        //private boolean mUseTexGen = false;
         private float mAngle;
 
         public void onDrawFrame(GL10 gl) {
@@ -165,14 +164,14 @@ public class CubeMapActivity extends Activity {
         private Grid generateTorusGrid(GL gl, int uSteps, int vSteps, float majorRadius, float minorRadius) {
             Grid grid = new Grid(uSteps + 1, vSteps + 1);
             for (int j = 0; j <= vSteps; j++) {
-                double angleV = Math.PI * 2 * j / vSteps;
+                double angleV = (Math.PI * 2 * j) / vSteps;
                 float cosV = (float) Math.cos(angleV);
                 float sinV = (float) Math.sin(angleV);
                 for (int i = 0; i <= uSteps; i++) {
-                    double angleU = Math.PI * 2 * i / uSteps;
+                    double angleU = (Math.PI * 2 * i) / uSteps;
                     float cosU = (float) Math.cos(angleU);
                     float sinU = (float) Math.sin(angleU);
-                    float d = majorRadius+minorRadius*cosU;
+                    float d = majorRadius+(minorRadius*cosU);
                     float x = d*cosV;
                     float y = d*(-sinV);
                     float z = minorRadius * sinU;
@@ -181,7 +180,7 @@ public class CubeMapActivity extends Activity {
                     float ny = -sinV * cosU;
                     float nz = sinU;
 
-                    float length = (float) Math.sqrt(nx*nx + ny*ny + nz*nz);
+                    float length = (float) Math.sqrt((nx*nx) + (ny*ny) + (nz*nz));
                     nx /= length;
                     ny /= length;
                     nz /= length;
@@ -255,13 +254,13 @@ public class CubeMapActivity extends Activity {
         private int mIndexCount;
 
         public Grid(int w, int h) {
-            if (w < 0 || w >= 65536) {
+            if ((w < 0) || (w >= 65536)) {
                 throw new IllegalArgumentException("w");
             }
-            if (h < 0 || h >= 65536) {
+            if ((h < 0) || (h >= 65536)) {
                 throw new IllegalArgumentException("h");
             }
-            if (w * h >= 65536) {
+            if ((w * h) >= 65536) {
                 throw new IllegalArgumentException("w * h >= 65536");
             }
 
@@ -297,10 +296,10 @@ public class CubeMapActivity extends Activity {
                 int i = 0;
                 for (int y = 0; y < quadH; y++) {
                     for (int x = 0; x < quadW; x++) {
-                        char a = (char) (y * mW + x);
-                        char b = (char) (y * mW + x + 1);
-                        char c = (char) ((y + 1) * mW + x);
-                        char d = (char) ((y + 1) * mW + x + 1);
+                        char a = (char) ((y * mW) + x);
+                        char b = (char) ((y * mW) + x + 1);
+                        char c = (char) (((y + 1) * mW) + x);
+                        char d = (char) (((y + 1) * mW) + x + 1);
 
                         mIndexBuffer.put(i++, a);
                         mIndexBuffer.put(i++, c);
@@ -315,16 +314,16 @@ public class CubeMapActivity extends Activity {
         }
 
         public void set(int i, int j, float x, float y, float z, float nx, float ny, float nz) {
-            if (i < 0 || i >= mW) {
+            if ((i < 0) || (i >= mW)) {
                 throw new IllegalArgumentException("i");
             }
-            if (j < 0 || j >= mH) {
+            if ((j < 0) || (j >= mH)) {
                 throw new IllegalArgumentException("j");
             }
 
-            int index = mW * j + i;
+            int index = (mW * j) + i;
 
-            mVertexBuffer.position(index * VERTEX_SIZE / FLOAT_SIZE);
+            mVertexBuffer.position((index * VERTEX_SIZE) / FLOAT_SIZE);
             mVertexBuffer.put(x);
             mVertexBuffer.put(y);
             mVertexBuffer.put(z);
